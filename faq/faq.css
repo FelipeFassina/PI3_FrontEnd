@@ -1,0 +1,40 @@
+.faq-list {
+  background: #fff;
+}
+
+.faq-list details {
+  border-bottom: 1px solid var(--line);
+  padding: 25px 28px;
+}
+
+.faq-list details:last-child {
+  border-bottom: 0;
+}
+
+.faq-list summary {
+  cursor: pointer;
+  font: 500 22px var(--serif);
+  list-style: none;
+}
+
+.faq-list summary::-webkit-details-marker {
+  display: none;
+}
+
+.faq-list summary:after {
+  content: '+';
+  float: right;
+  font: 20px var(--mono);
+}
+
+.faq-list details[open] summary:after {
+  content: '−';
+}
+
+.faq-list p {
+  max-width: 680px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.7;
+  margin: 18px 0 0;
+}

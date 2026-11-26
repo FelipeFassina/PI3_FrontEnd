@@ -1,0 +1,47 @@
+.reservation-list {
+  max-width: 800px;
+  display: grid;
+  gap: 16px;
+}
+
+.saved-reservation {
+  background: #fff;
+  padding: 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 25px;
+}
+
+.saved-reservation h2 {
+  font: 500 30px var(--serif);
+  margin: 14px 0 4px;
+}
+
+.saved-reservation p {
+  color: var(--muted);
+  font-size: 12px;
+  margin: 5px 0;
+}
+
+.saved-reservation strong {
+  font: 12px var(--mono);
+}
+
+.status-badge {
+  color: var(--orange);
+  font: 10px var(--mono);
+  text-transform: uppercase;
+}
+
+.saved-reservation .text-link {
+  margin: 0;
+  white-space: nowrap;
+}
+
+@media (max-width: 800px) {
+  .saved-reservation {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}

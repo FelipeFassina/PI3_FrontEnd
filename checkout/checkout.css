@@ -1,0 +1,26 @@
+.payment-tabs {
+  display: flex;
+  gap: 25px;
+  border-bottom: 1px solid var(--line);
+}
+
+.payment-tabs button {
+  border: 0;
+  background: none;
+  padding: 0 0 12px;
+  color: var(--muted);
+  cursor: pointer;
+}
+
+.payment-tabs button.active {
+  border-bottom: 1px solid var(--ink);
+  color: var(--ink);
+}
+
+.payment-note {
+  background: var(--cream);
+  padding: 14px;
+  font-size: 11px;
+  color: var(--muted);
+  line-height: 1.5;
+}

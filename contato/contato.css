@@ -1,0 +1,22 @@
+.contact-details {
+  padding: 10px 0;
+}
+
+.contact-details h2 {
+  font: 500 35px var(--serif);
+  margin: 20px 0;
+}
+
+.contact-details > p {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.contact-details a {
+  display: block;
+  margin-top: 16px;
+  font-size: 13px;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 8px;
+  width: max-content;
+}

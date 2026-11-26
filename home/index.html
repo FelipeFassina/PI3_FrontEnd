@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="BUSCAMOR Motel — uma experiência para sair da rotina." />
+    <title>BUSCAMOR Motel | Seu tempo, do seu jeito</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="../shared/global.css" />
+    <link rel="stylesheet" href="home.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="#inicio" aria-label="BUSCAMOR Motel - início"><span>BUSCAMOR</span><small>MOTEL</small></a>
+      <button class="menu-toggle" aria-label="Abrir menu" aria-expanded="false"><span></span><span></span></button>
+      <nav class="main-nav" aria-label="Navegação principal">
+        <a href="#experiencias">Experiências</a>
+        <a href="#suites">Suítes</a>
+        <a href="#sobre">O BUSCAMOR</a>
+        <a href="#contato">Fale com a gente</a>
+        <a href="../account/account.html" id="navAccountLink">Entrar</a>
+        <a class="nav-cta" href="#reserva">Reservar <span>↗</span></a>
+      </nav>
+    </header>
+
+    <main id="inicio">
+      <section class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow">Motel adulto · 24 horas · São Paulo</p>
+          <h1>Entre.<br /><em>Feche a porta.</em></h1>
+          <p class="hero-description">Suítes por hora, entrada discreta e tudo o que vocês precisam para esquecer o mundo lá fora.</p>
+          <div class="hero-perks" aria-label="Diferenciais do motel">
+            <span>Entrada discreta</span>
+            <span>Garagem privativa</span>
+            <span>24 horas</span>
+          </div>
+          <a class="text-link" href="#suites">Conheça nossas suítes <span>↓</span></a>
+        </div>
+        <div class="hero-stamp" aria-hidden="true"><span>24</span><small>horas<br />para você</small></div>
+        <div class="hero-scroll">Role para explorar <span>↓</span></div>
+      </section>
+
+      <section class="booking" id="reserva">
+        <div class="booking-heading"><p class="eyebrow">Suítes por hora ou pernoite</p><h2>Escolha seu tempo</h2></div>
+        <div class="booking-tabs" role="tablist">
+          <button class="booking-tab active" data-mode="now" role="tab">Ir agora</button>
+          <button class="booking-tab" data-mode="later" role="tab">Agendar</button>
+        </div>
+        <form class="booking-form">
+          <label class="field"><span>Unidade</span><select name="unit"><option value="moema">Moema · São Paulo</option></select></label>
+          <label class="field later-field hidden"><span>Data</span><input name="date" type="date" /></label>
+          <label class="field later-field hidden"><span>Horário de chegada</span><input name="arrivalTime" type="time" value="21:00" /></label>
+          <label class="field"><span>Tempo de permanência</span><select name="duration"><option value="3-hours">3 horas</option><option value="6-hours">6 horas</option><option value="overnight">Pernoite</option></select></label>
+          <button class="button button-dark" type="submit">Ver disponibilidade <span>↗</span></button>
+        </form>
+        <p class="booking-feedback" aria-live="polite"></p>
+      </section>
+
+      <section class="intro section-pad reveal" id="sobre">
+        <div class="section-label"><span>01</span><span>O motel do seu jeito</span></div>
+        <div class="intro-grid">
+          <div><h2>Algumas horas.<br /><em>Mil possibilidades.</em></h2></div>
+          <div class="intro-text"><p>Luz baixa, lençóis macios e privacidade de verdade. Aqui, vocês escolhem o ritmo — e o que acontece depois que a porta fecha.</p><a class="text-link" href="#suites">Escolha sua suíte <span>↗</span></a></div>
+        </div>
+      </section>
+
+      <section class="experiences section-pad reveal" id="experiencias">
+        <div class="section-label"><span>02</span><span>Escolha sua experiência</span></div>
+        <div class="experience-grid">
+          <article class="experience-card experience-card-large"><div class="card-overlay"><span>01 · CONFORTO</span><h3>Privacidade<br />sem pressa</h3></div></article>
+          <article class="experience-card experience-card-small"><div class="card-overlay"><span>02 · DESEJO</span><h3>Quarto pronto<br />para vocês</h3></div></article>
+          <article class="experience-card experience-card-small card-terracotta"><div class="card-overlay"><span>03 · LIBERDADE</span><h3>Faça a noite<br />do seu jeito</h3></div></article>
+        </div>
+      </section>
+
+      <section class="suites section-pad reveal" id="suites">
+        <div class="suites-top"><div class="section-label"><span>03</span><span>Escolha seu cenário</span></div><a class="text-link" href="../disponibilidade/disponibilidade.html?unit=moema&arrivalTime=21%3A00&duration=3-hours" target="_blank" rel="noopener">Ver todas as suítes <span>↗</span></a></div>
+        <div class="suite-grid" id="suiteGrid"></div>
+      </section>
+
+      <section class="quote-section reveal"><div class="quote-mark">“</div><blockquote>Deixe a rotina<br /><em>do lado de fora.</em></blockquote><p>BUSCAMOR · PRIVACIDADE PARA VIVER O AGORA</p></section>
+
+      <section class="location section-pad reveal" id="contato">
+        <div class="location-copy"><div class="section-label"><span>04</span><span>Chegada discreta</span></div><h2>Você chega.<br /><em>A porta fecha.</em></h2><p>Garagem privativa, atendimento 24 horas e total discrição do check-in ao check-out.</p><div class="address"><span>⌖</span><div><strong>Unidade Moema</strong><br />Av. dos Imarés, 320 · São Paulo — SP</div></div><a class="button button-outline" href="#">Como chegar <span>↗</span></a></div>
+        <div class="map-placeholder"><span>+</span><div><b>BUSCAMOR</b><small>Moema · SP</small></div></div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-brand">
+        <a class="brand" href="#inicio">
+          <span>BUSCAMOR</span>
+          <small>MOTEL</small>
+        </a>
+        <p>Seu tempo. Do seu jeito.</p>
+      </div>
+      <div class="footer-links">
+        <div>
+          <small>Explore</small>
+          <a href="#experiencias">Experiências</a>
+          <a href="#suites">Suítes</a>
+          <a href="#sobre">O BUSCAMOR</a>
+          <a href="../minhas-reservas/minhas-reservas.html">Minhas reservas</a>
+          <a href="../faq/faq.html">Perguntas frequentes</a>
+        </div>
+        <div>
+          <small>Fale com a gente</small>
+          <a href="tel:+5511999999999">(11) 99999-9999</a>
+          <a href="mailto:oi@buscamor.com.br">oi@buscamor.com.br</a>
+          <a href="../contato/contato.html">Contato</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 BUSCAMOR Motel</span>
+        <span>Privacidade · Termos</span>
+      </div>
+    </footer>
+    <div class="cookie-banner" role="dialog" aria-label="Aviso de cookies"><p>Usamos cookies para melhorar sua experiência por aqui.</p><button class="cookie-accept">Tudo bem</button></div>
+    <script src="../shared/api.js"></script>
+    <script src="home.js"></script>
+  </body>
+</html>

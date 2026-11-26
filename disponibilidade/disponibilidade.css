@@ -1,0 +1,102 @@
+.search-summary {
+  display: flex;
+  gap: 0;
+  background: #fff;
+  border: 1px solid var(--line);
+  margin-bottom: 28px;
+}
+
+.search-summary span {
+  flex: 1;
+  padding: 18px 20px;
+  border-right: 1px solid var(--line);
+  font: 11px var(--mono);
+  text-transform: uppercase;
+}
+
+.search-summary span:last-child {
+  border: 0;
+}
+
+.availability-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 30px;
+}
+
+.availability-card {
+  background: #fff;
+  padding-bottom: 24px;
+}
+
+.availability-image {
+  height: 250px;
+  background-position: center;
+  background-size: cover;
+  position: relative;
+}
+
+.availability-image span {
+  position: absolute;
+  left: 18px;
+  top: 18px;
+  background: #fff;
+  padding: 7px 10px;
+  font: 10px var(--mono);
+  text-transform: uppercase;
+}
+
+.availability-info {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 22px 24px 18px;
+}
+
+.availability-info h2 {
+  font: 500 30px var(--serif);
+  margin: 8px 0;
+}
+
+.availability-info p:last-child {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.availability-info strong {
+  font: 16px var(--mono);
+  white-space: nowrap;
+}
+
+.availability-info strong small {
+  display: block;
+  color: var(--muted);
+  font-size: 9px;
+  margin-top: 5px;
+  font-weight: 400;
+}
+
+.availability-card > .button {
+  margin: 0 24px;
+}
+
+@media (max-width: 800px) {
+  .search-summary {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+  .search-summary span {
+    padding: 14px;
+    border-bottom: 1px solid var(--line);
+  }
+  .availability-grid {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+  .availability-image {
+    height: 220px;
+  }
+  .availability-info {
+    padding: 18px;
+  }
+}
