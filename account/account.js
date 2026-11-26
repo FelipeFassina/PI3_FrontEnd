@@ -7,7 +7,7 @@
     ADMIN: 'Administrador'
   };
 
-  // --- Formatação e Máscaras de CPF e Telefone ---
+  // --- Formatação e Máscaras de CPF, Telefone e Moeda ---
   const formatarCPF = (valor) =>
     String(valor || '')
       .replace(/\D/g, '')
@@ -26,6 +26,23 @@
     return numeros
       .replace(/^(\d{2})(\d)/, '($1)$2')
       .replace(/(\d{5})(\d)/, '$1-$2');
+  };
+
+  const formatarMoedaInput = (valor) => {
+    const digitos = String(valor || '').replace(/\D/g, '');
+    if (!digitos) return '';
+    const numero = (parseInt(digitos, 10) / 100).toFixed(2);
+    const [inteiro, decimal] = numero.split('.');
+    return `${inteiro.replace(/\B(?=(\d{3})+(?!\d))/g, '.')},${decimal}`;
+  };
+
+  const parsePrecoBRL = (valor) => {
+    const texto = String(valor || '').trim();
+    if (!texto) return NaN;
+    if (texto.includes(',')) {
+      return parseFloat(texto.replace(/\./g, '').replace(',', '.'));
+    }
+    return parseFloat(texto);
   };
 
   const formatarDataHora = (iso) => {
@@ -292,7 +309,7 @@
                 <label class="field"><span>Características / O que tem (separe por vírgula)</span><input name="caracteristicas" placeholder="Banheira de imersão, Cama king size, Som ambiente, Smart TV" required /></label>
                 <label class="field"><span>01 · Título da descrição</span><input name="tituloDescricao" placeholder="Ex: Um refúgio para desacelerar." required /></label>
                 <label class="field"><span>01 · Descrição completa</span><textarea name="descricaoDetalhada" rows="3" placeholder="Texto detalhado sobre a experiência da suíte..." required></textarea></label>
-                <label class="field"><span>Preço por período (R$)</span><input name="precoDiaria" type="number" step="0.01" placeholder="189.90" required /></label>
+                <label class="field"><span>Preço por período (R$)</span><input name="precoDiaria" type="text" inputmode="decimal" placeholder="189,90" required /></label>
                 <label class="field"><span id="suiteFotoLabel">Foto do quarto</span><input name="foto" type="file" accept="image/*" required /></label>
                 <div style="display: flex; gap: 10px; flex-wrap: wrap;">
                   <button class="button button-dark" type="submit" id="suiteSubmitBtn">Cadastrar suíte <span>↗</span></button>
@@ -321,6 +338,7 @@
             <p class="eyebrow">Suítes cadastradas no banco</p>
             <h2>Gerenciar quartos</h2>
             <div class="admin-list" id="suiteAdminList">Carregando...</div>
+            <p class="form-feedback" id="suiteListFeedback" aria-live="polite"></p>
           </section>
 
           <section class="account-panel" style="margin-top: 24px;">
@@ -341,12 +359,28 @@
       const funcForm = document.querySelector('#funcForm');
       aplicarMascarasFormulario(funcForm);
 
-      const inputNumeroSuite = document.querySelector('#suiteForm input[name="numero"]');
+      const suiteFormEl = document.querySelector('#suiteForm');
+      const inputNumeroSuite = suiteFormEl?.querySelector('input[name="numero"]');
+      const inputPrecoSuite = suiteFormEl?.querySelector('input[name="precoDiaria"]');
+
       if (inputNumeroSuite) {
         inputNumeroSuite.addEventListener('input', (e) => {
           e.target.value = e.target.value.replace(/\D/g, '');
         });
       }
+
+      if (inputPrecoSuite) {
+        inputPrecoSuite.addEventListener('input', (e) => {
+          e.target.value = formatarMoedaInput(e.target.value);
+        });
+      }
+
+      suiteFormEl?.addEventListener('input', () => {
+        const feedback = document.querySelector('#suiteFeedback');
+        if (feedback && feedback.textContent) {
+          feedback.textContent = '';
+        }
+      });
 
       const resetarFormularioSuite = () => {
         const form = document.querySelector('#suiteForm');
@@ -398,12 +432,13 @@
             btn.addEventListener('click', async () => {
               const id = btn.dataset.saveStatus;
               const novoStatus = list.querySelector(`[data-suite-status="${id}"]`).value;
+              const listFeedback = document.querySelector('#suiteListFeedback');
               try {
                 await window.NoxApi.alterarStatusQuarto(id, novoStatus);
-                document.querySelector('#suiteFeedback').textContent = 'Status da suíte atualizado!';
+                listFeedback.textContent = 'Status da suíte atualizado!';
                 renderSuitesAdmin();
               } catch (err) {
-                document.querySelector('#suiteFeedback').textContent = err.message;
+                listFeedback.textContent = err.message;
               }
             });
           });
@@ -420,7 +455,9 @@
               form.querySelector('input[name="caracteristicas"]').value = suite.amenities.join(', ');
               form.querySelector('input[name="tituloDescricao"]').value = suite.headline;
               form.querySelector('textarea[name="descricaoDetalhada"]').value = suite.longDescription;
-              form.querySelector('input[name="precoDiaria"]').value = suite.priceValue;
+              form.querySelector('input[name="precoDiaria"]').value = formatarMoedaInput(
+                Number(suite.priceValue || 0).toFixed(2)
+              );
               form.querySelector('input[name="foto"]').required = false;
 
               document.querySelector('#suiteFormEyebrow').textContent = `Editando Suíte ${suite.number}`;
@@ -558,9 +595,15 @@
         const formData = new FormData(form);
         const editandoId = formData.get('id');
         const numeroDigitado = String(formData.get('numero') || '').replace(/\D/g, '');
+        const precoNumerico = parsePrecoBRL(formData.get('precoDiaria'));
 
         if (!numeroDigitado) {
           feedback.textContent = 'Informe um número válido para a suíte (apenas números).';
+          return;
+        }
+
+        if (isNaN(precoNumerico) || precoNumerico <= 0) {
+          feedback.textContent = 'Informe um preço válido maior que zero.';
           return;
         }
 
@@ -600,7 +643,7 @@
             caracteristicas: caracteristicasFormatadas,
             tituloDescricao: formData.get('tituloDescricao'),
             descricaoDetalhada: formData.get('descricaoDetalhada'),
-            precoDiaria: Number(formData.get('precoDiaria')),
+            precoDiaria: precoNumerico,
             imagemUrl
           };
 

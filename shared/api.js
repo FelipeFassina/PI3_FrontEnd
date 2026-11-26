@@ -151,10 +151,15 @@
     const data = text ? JSON.parse(text) : null;
 
     if (!response.ok) {
+      const msgValidacaoSpring = Array.isArray(data?.errors) && data.errors.length > 0
+        ? data.errors.map((e) => e.defaultMessage).join(' · ')
+        : null;
+
       const msg =
-        data?.message ||
-        data?.erro ||
+        msgValidacaoSpring ||
         (data?.campos ? Object.values(data.campos).join(' · ') : null) ||
+        data?.erro ||
+        data?.message ||
         'Erro ao processar requisição no servidor.';
       throw new Error(msg);
     }
